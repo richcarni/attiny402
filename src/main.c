@@ -4,6 +4,7 @@
 // #include "include/atmel_start_pins.h"
 #include <util/delay.h>
 #include <port.h>
+#include <uart.h>
 
 /**
  * \brief Set LED0 data direction
@@ -39,6 +40,8 @@ int main(void)
 	/* Initializes MCU, drivers and middleware */
 	//atmel_start_init();
 	LED0_set_dir(PORT_DIR_OUT);
+	
+	PORTA_set_pin_level(6, true);
 	PORTA_set_pin_dir(6, PORT_DIR_OUT);
 
 	LED0_set_level(
@@ -47,19 +50,26 @@ int main(void)
 	    // <false"> Low
 	    // <true"> High
 	    false);
-	PORTA_set_pin_level(6, false);
+	// PORTA_set_pin_level(6, false);
+
+	UART_Init(9600);
 
 	/* Replace with your application code */
 	while (1) {
-		LED0_set_level(true);
-		PORTA_set_pin_level(6, true);
-		_delay_ms(330);
-		PORTA_set_pin_level(6, false);
-		_delay_ms(330);
-		PORTA_set_pin_level(6, true);
-		_delay_ms(330);
 		LED0_set_level(false);
-		PORTA_set_pin_level(6, false);
-		_delay_ms(330);
+		// PORTA_set_pin_level(6, true);
+		// _delay_ms(1000);
+		// PORTA_set_pin_level(6, false);
+		// _delay_ms(330);
+		// PORTA_set_pin_level(6, true);
+		// _delay_ms(330);
+		// LED0_set_level(false);
+		// PORTA_set_pin_level(6, false);
+		// _delay_ms(330);
+		// UART_Printf("yes\n\r");
+		// UART_TxChar('a');
+		UART_RxChar();
+		LED0_set_level(true);
+		_delay_ms(300);
 	}
 }
